@@ -1,0 +1,28 @@
+{
+  "name": "docstation",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm rebuild node-sass && next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/firebase": "^3.2.1",
+    "@types/node-sass": "^4.11.1",
+    "@types/styled-jsx": "^2.2.8",
+    "dotenv": "^8.2.0",
+    "firebase": "^7.20.0",
+    "next": "9.5.3",
+    "node-sass": "^4.14.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "styled-jsx": "^3.3.0",
+    "styled-jsx-plugin-sass": "^1.0.0",
+    "url-loader": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  }
+}
