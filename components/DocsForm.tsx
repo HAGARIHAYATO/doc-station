@@ -1,6 +1,9 @@
 import react, {FC, useState, useEffect, Dispatch, SetStateAction, useReducer} from 'react';
 import Link from 'next/link';
 import {colors, texts} from '../lib/style.json';
+import FormInline from './FormInline';
+import NewFolder from './NewFolder';
+import NewFile from './NewFile';
 
 interface Props {
 
@@ -15,14 +18,19 @@ const DocsForm: FC<Props> = () => {
   const submit = () => {
     console.log("submit")
   }
-  const [docs, dispatch] = useReducer((state, action) => {
+  const [children, dispatch] = useReducer((state, action) => {
     state.push(action)
     return state
   }, [])
-  const [isFolderOpen, setIsFolderOpen] = useState(false)
+  const [isNewFileOpen, setNewFileOpen] = useState(false)
+  const [isNewFolderOpen, setNewFolderOpen] = useState(false)
   const [isWrite, setIsWrite] = useState(true)
   const [isSetting, setIsSetting] = useState(false)
   const [mainTitle, setMainTitle] = useState("")
+
+  const addChild = (isFolder: boolean) => {
+    isFolder ? setNewFolderOpen(!isNewFolderOpen) : setNewFileOpen(!isNewFileOpen);
+  }
   return (
     <>
       <div className="form">
@@ -50,13 +58,20 @@ const DocsForm: FC<Props> = () => {
               />
             </p>}
             {isSetting ? <div className="navi">
-              <p onClick={() => { setIsWrite(!isWrite); setIsSetting(!isSetting) }}>Rename</p>
-              <p>Add Folder</p>
+              <p onClick={() => { setIsWrite(!isWrite); setIsSetting(!isSetting); }}>Rename</p>
+              <p onClick={() => { setIsSetting(!isSetting); addChild(true); }}>Add Folder</p>
+              <p onClick={() => { setIsSetting(!isSetting); addChild(false); }}>Add File</p>
             </div> : <></>}
+            {children.map((c, i) => {
+              console.log(c, i)
+              return <FormInline content={c} index={i} key={i}/>
+            })}
           </div>
         </div>
         <button className="submitBtn" onClick={submit}>Create Docs</button>
       </div>
+      <NewFolder isOpen={isNewFolderOpen} setOpen={setNewFolderOpen} dispatch={dispatch}/>
+      <NewFile isOpen={isNewFileOpen} setOpen={setNewFileOpen} dispatch={dispatch}/>
       <style jsx>{`
       .form {
         width: 100%;
@@ -77,6 +92,7 @@ const DocsForm: FC<Props> = () => {
         min-height: 100px;
         width: 100%;
         position: relative;
+        padding: 20px 2%;
       }
       .form__directly__title {
         padding: 0 10px; 
@@ -113,6 +129,8 @@ const DocsForm: FC<Props> = () => {
         & p {
           color: ${colors.text} !important;
           cursor: pointer;
+          margin: 5px 0;
+          font-weight: bold;
         }
       }
       .submitBtn {
