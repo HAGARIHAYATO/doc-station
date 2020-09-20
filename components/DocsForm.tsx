@@ -75,7 +75,7 @@ const DocsForm: FC<Props> = () => {
             </pre>
           </div>
         </div>
-        <button className="submitBtn" onClick={submit}>Create Docs</button>
+        <button className="submitBtn" onClick={submit} disabled={(title === "" || code === "")}>Create Docs</button>
       </div>
       <style jsx>{`
       .form {
