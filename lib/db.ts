@@ -1,7 +1,5 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-
-let db;
 try {
   const config = {
         apiKey: process.env.FIREBASE_API_KEY,
@@ -13,11 +11,8 @@ try {
         appId: process.env.FIREBASE_APP_ID
     };
     firebase.initializeApp(config);
-    db = firebase.firestore();
   } catch (error) {
     console.log(error);
   }
 
-  module.exports = {
-    db
-  };
+export default firebase;

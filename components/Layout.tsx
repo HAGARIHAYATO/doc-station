@@ -28,6 +28,7 @@ const Layout: FC<Props> = (props) => {
         padding: 0 0 140px 0;
         background-color: ${colors.back};
         color: ${colors.text};
+        position: relative;
       }
       header {
         height: 60px;
@@ -36,14 +37,14 @@ const Layout: FC<Props> = (props) => {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        & div {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .leftBox {
-          width: 30%;
-        }
+      }
+      header div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .leftBox {
+        width: 30%;
       }
       main {
         padding: 1% 5%;
