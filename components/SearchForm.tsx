@@ -1,17 +1,37 @@
-import react, {FC} from 'react';
+import react, {FC, useState} from 'react';
 import Link from 'next/link';
 import {colors, texts} from '../lib/style.json';
+import Router from 'next/router';
 
 interface Props {
 
 }
 
 const SearchForm: FC<Props> = () => {
+  const [url, setUrl] = useState("")
   return (
     <>
       <div className="searchBox">
         <img src="static/search.svg" className="searchIcon"/>
-        <input type="text" className="searchInput"/>
+        <input type="text" className="searchInput" onChange={(e) => {
+          let uri = "/search"
+          const words = e.target.value.split(" ")
+          if (e.target.value.trim() !== "") {
+            uri += "?q="
+            uri += words.join("%20")
+          }
+          setUrl(uri)
+        }}
+        onKeyDown={(e) => {
+          if (url === "") return
+          if (e.key == 'Enter') {
+            e.preventDefault()
+            // TODO
+            if (url === "/search") return
+            Router.push(url)
+          }
+        }}
+        />
       </div>
       <style jsx>{`
       .searchBox {
